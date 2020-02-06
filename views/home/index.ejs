@@ -1,0 +1,33 @@
+<!doctype html>
+<html>
+<head>
+    <title>Node Authentication</title>
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
+    <style>
+        body         { padding-top:80px; }
+    </style>
+</head>
+<body>
+<div class="container">
+<div class="col-sm-6 col-sm-offset-3">
+
+    
+    <% const spotify = locals.spotify %>
+    <% if (!spotify) { %>
+    <div class="home-wrapper">
+        <div class="spotify-wrapper">
+            <div class="buttons">
+            <a href="http://localhost:5000/login" class="button button-spotify hover-none">
+                <i class="fab fa-spotify"></i>
+                <span>Connect with Spotify</span>
+            </a>
+            </div>
+        </div>
+    </div>
+    <% } %>
+
+</div>
+</div>
+</body>
+</html>
