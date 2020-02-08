@@ -12,6 +12,7 @@
     "cookie-parser": "^1.4.4",
     "countries": "^0.1.1",
     "crypto": "^1.0.1",
+    "express-session": "^1.17.0",
     "querystring": "^0.2.0"
   }
 }

@@ -1,0 +1,22 @@
+<% const posts = locals.blogPosts %>
+<html>
+  <head>
+    <script src="../../public/ejs/ejs.js"></script>
+  </head>
+  <body>
+    <div id="output"></div>
+    <script>
+        
+         var html = ejs.render(`<% for(let i = 0; i < posts.length; i++) { %>
+          <article>
+              <h2><%= posts[i].title %></h1>
+              <p><%= posts[i].body %></p>
+          </article>
+      <% } %>`, {posts: blogPosts});
+        // Vanilla JS:
+        document.getElementById('output').innerHTML = html;
+      </script>
+  </body>
+
+  
+</html>

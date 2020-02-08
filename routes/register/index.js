@@ -12,11 +12,12 @@ router.post('/', (req, res) => {
     const email = req.body.email;
     const password = req.body.password;
     const userApiRegister = "http://localhost:4000/register"
-    const name = "Tataru Robert";
+
+    //const name = "Tataru Robert";
     if (password) {
         if (password.length >= 6) {
             request.post(userApiRegister, {
-                json: {name, email, password }
+                json: {email, password }
             }, (error, response, body) => {
                 if (!error && response.statusCode === 200) {
                     res.redirect('http://localhost:3000/login')

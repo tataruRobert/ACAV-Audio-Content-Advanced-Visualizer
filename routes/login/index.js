@@ -12,7 +12,7 @@ router.post('/', async (req, res) => {
     const email = req.body.email;
     const password = req.body.password;
     const userApiLogin = "http://localhost:4000/login";
-
+    //console.log(email, password)
     if (email && password) {
         if (password.length >= 6){
             
@@ -20,13 +20,27 @@ router.post('/', async (req, res) => {
                 json: { email, password }
             }, (error, response, body) => {
                 if (!error && response.statusCode === 200) {
-                    
-                    console.log("e bine");
-                    // res.redirect("./login");
-                    //res.render('login', { message: ''});
+                    if (body && body.token) {
+                        sess.wa = {
+                            token: body.token,
+                            date: new Date()
+                        };
+                        sess.user = {
+                            email
+                        };
+                        //body.spotify_token
+                        if (0) {
+                            //TO DO
+
+                        } else {
+                            res.redirect("http://localhost:3000/");
+                        }
+                    } else {
+                        res.render('login', { message: body.message });
+                    }
                 }
-            })
-            res.render('login', { message: ''});
+            });
+            //res.render('login', { message: ''});
         }else {
             res.render('login', { message: 'Incorrect password'});
         }
