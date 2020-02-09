@@ -202,13 +202,14 @@ router.get('/get-me', (req, res) => {
 });
 
 router.get('/top-playlist-countries', (req, res) => {
+    var access_token = req.body.token
     var result = {}
     var i = 0;
     Object.keys(countries).forEach(key=>{
         console.log(`${key} : ${countries[key]}`);
         var cheie = key;
         var countryID = countries[key];
-        var access_token = "BQDaW5Vz_nc5KER-tWLYSihA5YKQjy5DiQ7_4enAWCeFcMs0tE4k3nB8R_IeCZAvszU8bXmH5uGN0LpNqS0vHFmrBUiv-4d2JLbdWIu-c4J7M0qgf3SxOvqO7EJYENeoPDuXMha_JyXoXwvMCqVPwSYSpricxLgHt0c-g_kXGM0r7GNBDzmUeFtCyXgIWa4";
+        //var access_token = "BQDaW5Vz_nc5KER-tWLYSihA5YKQjy5DiQ7_4enAWCeFcMs0tE4k3nB8R_IeCZAvszU8bXmH5uGN0LpNqS0vHFmrBUiv-4d2JLbdWIu-c4J7M0qgf3SxOvqO7EJYENeoPDuXMha_JyXoXwvMCqVPwSYSpricxLgHt0c-g_kXGM0r7GNBDzmUeFtCyXgIWa4";
         let playlist_url = "https://api.spotify.com/v1/playlists/" + countryID + '/';
         
         request({url:playlist_url, headers: { 'Authorization': 'Bearer ' + access_token }}, function(err,response){
@@ -254,15 +255,16 @@ router.get('/top-playlist-countries', (req, res) => {
 
 router.get('/top-tracks', (req, res) => {
     var access_token = "BQCdS0V9pvhKwx1yPUIIyB7P95Znn_tAAHBe7odjiL6gDXVe1eBpaTc-LgL5HbSasFP33JdW04PBMuznof4Y_idPBH_jUclpnUaN--2YQvH98HvCuH5rvo_g1QPpBRmGtzFiEYN_yQ6kkHYn1bPkbKKcbDEbsZGzNR6-ajeUKnYwQCU-QBf4ZafeC0reYD8";
+    access_token = req.body.token
+    //console.log(access_token)
     let url = "https://api.spotify.com/v1/me/tracks"
     request({url:url, headers: { 'Authorization': 'Bearer ' + access_token }}, function(err,response){
         if(response){
             
             let content = JSON.parse(response.body);
-            console.log(content.items);
+            //console.log(content.items);
             let list = [];
             let index = 1;
-            //console.log(typeof content)
             content.items.forEach(song =>  {
                 let name = song.track.name;
                 let artist = song.track.artists[0].name;
@@ -271,9 +273,11 @@ router.get('/top-tracks', (req, res) => {
                     name, artist, popularity
                 };
                 if (index < 11) {
+                    //console.log(list)
                     list.push(data)
                 }
                 if (index === 10) {
+                    //onsole.log(list)
                     res.json(list);
                 }
                 //console.log(song.track.name+ "/ /" + song.track.artists[0].name);

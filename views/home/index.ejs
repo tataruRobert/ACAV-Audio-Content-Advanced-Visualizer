@@ -1,32 +1,40 @@
+<% const spotify = locals.spotify %>
 <!doctype html>
 <html>
 <head>
     <title>Node Authentication</title>
-    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
-    <style>
-        body { padding-top:80px; }
-    </style>
+    <link rel="stylesheet" href="/stylesheets/Home/style.css">
 </head>
 <body>
-<div class="container">
-<div class="col-sm-6 col-sm-offset-3">
-
-    
-    <% const spotify = locals.spotify %>
+    <div class="header">
+        <h1>ACAV</h1>
+        <p>View your spotify stats</p>
+      </div>    
     <% if (!spotify) { %>
-    <div class="home-wrapper">
-        <div class="spotify-wrapper">
-            <div class="buttons">
-            <a href="/connect" class="button button-spotify hover-none">
-                <i class="fab fa-spotify"></i>
-                <span>Connect with Spotify</span>
-            </a>
+        <div class="navbar">
+            <a href="#">Link</a>
+            <a href="#">Link</a>
+            <a href="#">Link</a>
+            <a href="#" class="right">Link</a>
+            </div>
+        <div class="home-wrapper">
+            <div class="spotify-wrapper">
+                <div class="buttons">
+                <a href="/connect" class="button button-spotify hover-none">
+                    <i class="fab fa-spotify"></i>
+                    <span>Connect with Spotify</span>
+                </a>
+                </div>
             </div>
         </div>
-    </div>
     <% } else { %>
-        <div class="home-wrapper">
+        <div class="navbar">
+            <a href="/spotify/songs">Songs</a>
+            <a href="/spotify/artists">Artists</a>
+            <a href="/spotify/albums">Albums</a>
+            <a href="#" class="right">Logout</a>
+            </div>
+        <!-- <div class="home-wrapper">
             <div class="spotify-wrapper">
                 <h2 class="connected-as"><i class="fab fa-spotify"></i> Connected as: </h2>
                 <div class="buttons">
@@ -36,12 +44,9 @@
                         <% } %>
                         <span class="name"><%= spotify.name %></span>
                     </a>
-                    <a href="/disconnect/spotify" class="button button-opaque15 hover-none">
-                        <span>Disconnect</span>
-                    </a>
-                </div>
-                <h3 class="upper-hr"><i class="far fa-star"></i> View your favorites:</h3>
-                <div class="buttons">
+                </div> -->
+                
+                <!-- <div class="buttons">
                     <a href="/spotify/songs" class="button button-opaque15 hover-none<% if (locals.currentPage === 'songs') {
                     %>  active<% } %>">
                         <span>Songs</span>
@@ -54,14 +59,20 @@
                     %>  active<% } %>">
                         <span>Albums</span>
                     </a>
-                    <a href="/spotify/playlists" class="button button-opaque15 hover-none<% if (locals.currentPage === 'playlists') {
-                    %>  active<% } %>">
-                        <span>Playlists</span>
-                    </a>
-                </div>
+                    
+                </div> -->
+            </div>
+        </div>
+        <div class="card">
+            <% if (spotify.picture) { %>
+                <img src="<%= spotify.picture %>" alt="avatar" style="width:100%" class = "avatar" >
                 <% } %>
+            <h1 class="name"><%= spotify.name %></h1>
+            <p>Spotify Profile</p>
+            
+            <p><button onclick="location.href='<%= spotify.href %>'" type="button">Open Spotify</button></p>
 
-</div>
-</div>
+          </div>
+        <% } %>
 </body>
 </html>

@@ -1,22 +1,45 @@
-<% const posts = locals.blogPosts %>
+<% const spotify = locals.spotify %>
 <html>
   <head>
-    <script src="../../public/ejs/ejs.js"></script>
+  
   </head>
   <body>
-    <div id="output"></div>
-    <script>
-        
-         var html = ejs.render(`<% for(let i = 0; i < posts.length; i++) { %>
-          <article>
-              <h2><%= posts[i].title %></h1>
-              <p><%= posts[i].body %></p>
-          </article>
-      <% } %>`, {posts: blogPosts});
-        // Vanilla JS:
-        document.getElementById('output').innerHTML = html;
-      </script>
+   
+    <div id="piechart" style="width: 900px; height: 500px;"></div>
+    </div>
   </body>
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript">
+  google.charts.load('current', {'packages':['corechart']});
+  google.charts.setOnLoadCallback(drawChart);
 
-  
+  function drawChart() {
+
+    var dict = {}
+    "<% for (const [key, val] of Object.entries(spotify)) { %>"
+    dict["<%= key %>"] = "<%= val %>"
+    "<% } %>"
+    console.log(dict)
+    // Define the chart to be drawn.
+    var data = new google.visualization.DataTable();
+    data.addColumn('string', 'Gen');
+    data.addColumn('number', 'Popularity');
+    // for (var [key, val] of Object.entries(dict)) {
+    //   console.log(key,val)
+    //     data.addRow([key, val])
+    // }
+    for (var key in dict) {
+        var value = dict[key];
+        data.addRow([key, parseInt(value)])
+    }
+
+    var options = {
+      title: 'My Daily Activities'
+    };
+
+    var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+
+    chart.draw(data, options);
+  }
+</script>
 </html>

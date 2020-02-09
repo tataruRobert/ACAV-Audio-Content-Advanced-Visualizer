@@ -18,6 +18,7 @@ router.get('/',isAuthorized, function(req, res, next) {
         name: sess.user.spotify.name,
         picture: sess.user.spotify.picture
       };
+      console.log(data)
 
   }
 
