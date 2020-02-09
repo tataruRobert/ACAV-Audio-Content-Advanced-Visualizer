@@ -28,7 +28,8 @@ router.post('/', async (req, res) => {
                         sess.user = {
                             email
                         };
-                        //body.spotify_token
+                        // console.log("login")
+                        // console.log(body.spotify_token)
                         if (0) {
                             //TO DO
 

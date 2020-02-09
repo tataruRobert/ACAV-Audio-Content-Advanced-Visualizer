@@ -43,7 +43,9 @@
      id="defs4">
     <style
        type="text/css"
-       id="style6">path { fill-rule: evenodd; }</style>
+       id="style6">path { fill-rule: evenodd; }
+      </style>
+   
   </defs>
   <metadata
      id="metadata8">
@@ -1758,7 +1760,7 @@
             <li><%= countries.ES[4].name %></li>
         </ul>
     </div>
-
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
      <script type="text/javascript">
         document.getElementById("AU").addEventListener("mouseenter", function () {
             console.log("ceva")
@@ -1939,7 +1941,7 @@
             x.style.display = "none";
         })
 
-        $("path).hover(function(e) {
+          $("path").hover(function(e){
             $('#info-box').css('display','block');
             $('#info-box').html($(this).data('info'));
           });

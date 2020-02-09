@@ -50,15 +50,17 @@ router.post('/register', function(req, res, next) {
         token: token,
         email: email,
         password: password,
-        spotifyToken: ""
+        spotifyToken: " "
     }
     var user = new User(newUser);
     user.save().then(() => {
+        console.log(newUser)
         res.status(200).send({
             "success": "You have been registered!"
         });
     }).catch((err) => {
         if (err) {
+            console.log(err)
             res.status(404).send({
                 "error": "Something went wrong!"
             });

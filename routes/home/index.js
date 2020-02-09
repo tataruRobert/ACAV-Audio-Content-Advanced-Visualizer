@@ -6,8 +6,7 @@ const { isAuthorized } = require('../../session');
 router.get('/',isAuthorized, function(req, res, next) {
   const sess = req.session;
 
-
-  console.log(sess)
+  //console.log(sess)
 
     const data = {
         email: sess.user.email
@@ -15,9 +14,9 @@ router.get('/',isAuthorized, function(req, res, next) {
 
     if (sess.user.spotify) {
       data.spotify = {
-          // href: sess.user.spotify.href,
-          // name: sess.user.spotify.name,
-          // picture: sess.user.spotify.picture
+        href: sess.user.spotify.href,
+        name: sess.user.spotify.name,
+        picture: sess.user.spotify.picture
       };
 
   }
