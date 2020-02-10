@@ -295,6 +295,7 @@ router.get('/top-tracks', (req, res) => {
 router.get('/top-albums', (req, res) => {
     var access_token = "BQCdS0V9pvhKwx1yPUIIyB7P95Znn_tAAHBe7odjiL6gDXVe1eBpaTc-LgL5HbSasFP33JdW04PBMuznof4Y_idPBH_jUclpnUaN--2YQvH98HvCuH5rvo_g1QPpBRmGtzFiEYN_yQ6kkHYn1bPkbKKcbDEbsZGzNR6-ajeUKnYwQCU-QBf4ZafeC0reYD8";
     let url = "https://api.spotify.com/v1/me/albums"
+    access_token = req.body.token
     request({url:url, headers: { 'Authorization': 'Bearer ' + access_token }}, function(err,response){
         if(response){
             
@@ -331,11 +332,12 @@ router.get('/top-albums', (req, res) => {
 router.get('/top-artists', (req, res) => {
     var access_token = "BQCdS0V9pvhKwx1yPUIIyB7P95Znn_tAAHBe7odjiL6gDXVe1eBpaTc-LgL5HbSasFP33JdW04PBMuznof4Y_idPBH_jUclpnUaN--2YQvH98HvCuH5rvo_g1QPpBRmGtzFiEYN_yQ6kkHYn1bPkbKKcbDEbsZGzNR6-ajeUKnYwQCU-QBf4ZafeC0reYD8";
     let url = "https://api.spotify.com/v1/me/following?type=artist"
+    access_token = req.body.token
     request({url:url, headers: { 'Authorization': 'Bearer ' + access_token }}, function(err,response){
         if(response){
             
             let content = JSON.parse(response.body);
-            console.log(content.artists);
+            console.log(content.artists.items);
             let list = [];
             let index = 1;
             //console.log(typeof content)

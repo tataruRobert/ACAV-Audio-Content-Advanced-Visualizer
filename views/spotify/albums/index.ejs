@@ -14,7 +14,7 @@
       </div>
 
     <div id='png'></div>
-    <div id="piechart" style="width: 900px; height: 500px;"></div>
+    <div id="columnchart" style="width: 900px; height: 500px;"></div>
     </div>
   </body>
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
@@ -31,7 +31,7 @@
     console.log(dict)
     // Define the chart to be drawn.
     var data = new google.visualization.DataTable();
-    data.addColumn('string', 'Song');
+    data.addColumn('string', 'Album');
     data.addColumn('number', 'Popularity');
     
     for (var key in dict) {
@@ -40,17 +40,17 @@
     }
 
     var options = {
-      title: 'My Favorite Songs',
+      title: 'My Favorite Albums',
       pieHole: 0.4,
     };
-    var piechart = document.getElementById('piechart');
-    var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+    var columnchart= document.getElementById('columnchart');
+    var chart = new google.visualization.ColumnChart(document.getElementById('columnchart'));
 
     // google.visualization.events.addListener(chart, 'ready', function () {
-    //     piechart.innerHTML = '<img src="' + chart.getImageURI() + '">';
+    //     columnchart.innerHTML = '<img src="' + chart.getImageURI() + '">';
     //     document.getElementById('png').outerHTML = '<a href="' + chart.getImageURI() + '" download>Printable version</a>';
         
-    //     console.log(piechart.innerHTML);
+    //     console.log(columnchart.innerHTML);
     //   });
 
     chart.draw(data, options);

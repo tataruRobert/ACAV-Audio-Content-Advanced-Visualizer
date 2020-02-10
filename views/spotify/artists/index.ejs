@@ -1,0 +1,62 @@
+<% const spotify = locals.spotify %>
+<html>
+  <head>
+    <link rel="stylesheet" href="/stylesheets/Home/style.css">
+  </head>
+  <body>
+    <div class="navbar">
+      <a href="/">ACAV</a>
+      <a href="/spotify/songs">Songs</a>
+      <a href="/spotify/artists">Artists</a>
+      <a href="/spotify/albums">Albums</a>
+      <a href="/map">Map</a>
+      <a href="#" class="right">Logout</a>
+      </div>
+
+    <div id='png'></div>
+    <div id="bar" style="width: 900px; height: 500px;"></div>
+    </div>
+  </body>
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+  <script type="text/javascript">
+    google.charts.load('current', {'packages':['bar']});
+    google.charts.setOnLoadCallback(drawStuff);
+
+    function drawStuff() {
+      
+
+      var dict = {}
+        "<% for (const [key, val] of Object.entries(spotify)) { %>"
+        dict["<%= key %>"] = "<%= val %>"
+        "<% } %>"
+        console.log(dict)
+        // Define the chart to be drawn.
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', 'Album');
+        data.addColumn('number', 'Popularity');
+        
+        for (var key in dict) {
+            var value = dict[key];
+            data.addRow([key, parseInt(value)])
+        }
+
+      var options = {
+        title: 'Chess opening moves',
+        width: 900,
+        legend: { position: 'none' },
+        chart: { title: 'Chess opening moves',
+                 subtitle: 'popularity by percentage' },
+        bars: 'horizontal', // Required for Material Bar Charts.
+        axes: {
+          x: {
+            0: { side: 'top', label: 'Percentage'} // Top x-axis.
+          }
+        },
+        bar: { groupWidth: "90%" }
+      };
+
+      var chart = new google.charts.Bar(document.getElementById('bar'));
+      chart.draw(data, options);
+    };
+  </script>
+</html>

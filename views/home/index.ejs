@@ -5,33 +5,27 @@
     <title>Node Authentication</title>
     <link rel="stylesheet" href="/stylesheets/Home/style.css">
 </head>
-<body>
-    <div class="header">
-        <h1>ACAV</h1>
-        <p>View your spotify stats</p>
-      </div>    
+<body>  
     <% if (!spotify) { %>
         <div class="navbar">
-            <a href="#">Link</a>
-            <a href="#">Link</a>
-            <a href="#">Link</a>
-            <a href="#" class="right">Link</a>
+            <a href="/">ACAV</a>
             </div>
-        <div class="home-wrapper">
-            <div class="spotify-wrapper">
-                <div class="buttons">
-                <a href="/connect" class="button button-spotify hover-none">
-                    <i class="fab fa-spotify"></i>
-                    <span>Connect with Spotify</span>
-                </a>
-                </div>
-            </div>
-        </div>
+        
+        <div class="card">
+
+            <img src="/images/blank-profile.jpg" alt="avatar" style="width:100%" class = "avatar" >
+            <h1 class="name">Connect with Spotify </h1>
+            <p>Spotify Profile</p>
+            <p><button onclick="location.href='/connect'" type="button">Connect</button></p>
+
+          </div>
     <% } else { %>
         <div class="navbar">
+            <a href="/">ACAV</a>
             <a href="/spotify/songs">Songs</a>
             <a href="/spotify/artists">Artists</a>
             <a href="/spotify/albums">Albums</a>
+            <a href="/map">Map</a>
             <a href="#" class="right">Logout</a>
             </div>
         <!-- <div class="home-wrapper">
