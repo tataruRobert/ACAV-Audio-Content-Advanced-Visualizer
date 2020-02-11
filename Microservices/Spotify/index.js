@@ -266,7 +266,7 @@ router.get('/top-artists', (req, res) => {
         if(response){
             
             let content = JSON.parse(response.body);
-            console.log(content.artists.items);
+            //console.log(content.artists.items);
             let list = [];
             let index = 1;
             content.artists.items.forEach(artist =>  {

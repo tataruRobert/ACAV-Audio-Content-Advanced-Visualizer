@@ -26,41 +26,10 @@ router.post('/', async (req, res) => {
                         sess.user = {
                             email
                         };
-                        console.log(body.spotify_token)
-                        if (body.spotify_token) {
-                            //var token = req.body.spotify.token;
-                            sess.user.spotify = {refresh_token: body.spotify_token};
-                            request.post("http://localhost:3000/connect/token", { 
-                                json: { refresh_token: sess.user.spotify.refresh_token }
-                            }, (error, response, body) => {
-                                if (!error && response.statusCode === 200) {
-                                    sess.user.spotify.token = body.token;
-                                    token = body.token
-                                    request.get("http://localhost:5000/get-me",{
-                                        json: { token }
-                                    }, (req, response) => {
-                                        sess.user.spotify.id = response.body.id;
-                                        sess.user.spotify.href = response.body.href;
-                                        sess.user.spotify.name = response.body.diplay_name;
-                                        sess.user.spotify.picture = response.body.picture;
-                                        //console.log(sess.user)
-
-                                        storage.setItem(sess.wa.token, JSON.stringify({
-                                            wa: sess.wa,
-                                            user: sess.user
-                                        }));
-                                        res.end();
-                                    });
-                                } else {
-                                    delete sess.user.spotify;
-                                    res.redirect("http://localhost:3000/");
-                                }
-                            });
-
-
-                        } else {
-                            res.redirect("http://localhost:3000/");
-                        }
+                        //console.log(body.spotify_token)
+                        
+                        res.redirect("http://localhost:3000/");
+                        
                     } else {
                         res.render('login', { message: body.message });
                     }
