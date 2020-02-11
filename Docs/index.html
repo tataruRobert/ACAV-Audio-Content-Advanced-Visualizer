@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+	    <link rel="stylesheet" type="text/css" href="html-report.css">
+	    <title>ACAV</title>
+	</head>
+	<body>
+		<header>
+			<h1> ACAV (audio content advanced visualizer) </h1>
+			<div id="toc_container">
+		        <ul class="toc_list">
+		            <li><a href="#introduction">1. Introduction</a></li>
+		            <li><a href="#Used Technologies">2. Used Technologies</a></li>
+		            <li><a href="#Use Case">3. Use Case Diagram</a></li>
+		            <li><a href="#interaction">4. Interaction</a></li>
+		            <li><a href="#Structure">5. Structure</a></li>
+		            <li><a href="#arihitecture">6. Arhitecture</a></li>
+		            <li><a href="#Micro Services">7. Microservices</a></li>
+		            <li><a href="#APIs">8. APIs</a></li>
+		            <li><a href="#Database Model">9. Database Model</a></li>
+		            <li><a href="#bibliography">10. Bibliography & Sources</a></li>
+		        </ul>
+		    </div>
+		</header>
+
+		<section id="introduction">
+        <h1> 1. Introduction </h1>
+
+        <p> The app will use Web micro-services offering ways to visualize music content listened/shared by specific groups of users -- the info will be taken from specific streaming services. As examples of visualisations: a graph showing favourite songs listened by a group of people in a specific geographical spot or having similar preoccupations, the relations between similar songs based on the metadata provided, the generation of groups with similar interests. The visualisations will be available for download in PNG and SVG formats. 
+        </p>
+        
+     
+    </section>
+    <section id="Used Technologies">
+        <h1> 2. Used Technologies </h1>
+        <ul>
+            <li>HTML</li>
+            <li>CSS</li>
+            <li>JavaScript</li>
+            <li>NodeJS</li>
+            <li>MongoDB</li>
+            
+        </ul>
+    </section>
+
+    <section id="Use Case">
+        <h1> 3. Use Case Diagram </h1>
+        
+        
+        <img src="images/Use-Case.png" alt="Context diagram" style="width: 75%;">
+        
+
+    <section id = "interaction">
+    	<h1> 4. Interaction </h1>
+    	<p>
+    		For a user to use the app he will need to authenticate and his id will be saved in session. First he should configure his profile by linking to his spotify account in order to get acces to his favourite songs. From there he will be able to see different graphs about specific groups of people and their taste in music.
+    	</p>
+    </section>
+
+    
+
+    <section id = "Structure">
+    	<h1> 5. Structure </h1>
+    		<div>
+	    		The arihitecture we are going to use is going to be a MVC one because it gives a great separation between the main components of the app.
+	    		Here are the main three components:
+	    			<ul>
+	    				<li>
+	    					The Controller make the connection beteween the model and the view, also interacting with the network layer.
+	    				</li>
+	    				<li>
+	    					The Model will keep the data like user preferences and the playlists generated for the different use cases.
+	    				</li>
+	    				<li>
+	    					The View displays the graphs in a interactive way.
+	    				</li>
+	    			</ul>
+
+	    	</div>
+    </section>
+
+     <section id = "arihitecture">
+    	<h1> 6. Arhitecture </h1>
+    	<img src="images/Arhitecture.png" style="width: 50%;">
+    </section>
+
+    <section id = "Micro Services">
+    	<h1> 7. Microservices </h1>
+    	<p>
+    		Microservices architecture is an architectural style where the entire application is divided and designed as loosely-coupled, independent services modeled around a business domain.
+    	</p>
+    	<ol>
+    		<li>
+    			<h3> User Management </h3>
+    			<p>
+    				This microservice is going to take care of the connection with the database, therefore it will bring endopoints for 
+    				login, register and updating the token of a specific user. 
+    				<br>
+    				Examples of Endpoints:<br>
+    				POST: "http://localhost:4000/login"<br>
+    				PUT: http://localhost:4000/update-spotify-token"
+    			</p>
+    		</li>
+    		<li>
+    			<h3> Spotify Management </h3>
+    			<p>
+    				The Spotify manager takes care of the interaction of the app with the spotify Api, from the authentication to getting all sorts of specific data.
+    				<br>
+    				Examples of Endpoints:<br>
+    				GET: "http://localhost:5000/login"<br>
+    				GET: "http://localhost:5000/top-playlist-countries"<br>
+    				<img src="images/postman_call.png" style="width: 100%;">
+    			</p>
+    		</li>
+
+
+    		
+    	</ol>
+    </section>
+
+    <section id="APIs">
+        <h1> 8.APIs</h1>
+        <p>
+    		The app uses the spotify Api for bringing all the content for the graphs. In order to make calls to the spotify app, an a
+    		authorization flow must take place. This authorization flow is going to provide an expiring token, used for the OAuth2.
+    		The flow looks like this:
+    		<img src="images/spotify_auth.png" style="width: 50%;">
+    		<img src="images/flow.png" style="width: 100%;">
+
+    		An example of Api Call with its result
+    		<img src="images/spotify_call.png" style="width: 100%;">
+
+    		Also for the api to work we need to mark our app as an safe on the spotify's dashboard:
+    		<img src="images/panel.png" style="width: 100%;">
+    				
+    	</p>
+
+    </section>
+
+    <section id="Database Model">
+        <h1>9. Database Model</h1>
+        <p>
+    		The model used is pretty simple one, since the app doesn't require to store a whole lot of complexity. We used Mongoose as an ODM, for an easier interaction with the CRUD commands.
+    		The Schema used looks like this:
+    		<img src="images/model.png" style="width: 100%;">
+    				
+    	</p>
+
+    </section>
+
+    <section id="bibliography">
+        <h1> 10. Bibliography & Sources</h1>
+        
+        <p><a href="https://developer.spotify.com/documentation/web-api/">Spotify</a></p>
+        
+
+    </section>
+    
+    <footer>
+        <p> <b> STAW Project 2019  </b> </p>
+        <p> Tataru Robert </p>
+
+    </footer>
+
+
+	</body>
+</html>

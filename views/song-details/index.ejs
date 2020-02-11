@@ -1,0 +1,54 @@
+<% const details = locals.details %>
+<html>
+  <head>
+    <link rel="stylesheet" href="/stylesheets/Home/style.css">
+  </head>
+  <body>
+    <div class="navbar">
+      <a href="/">ACAV</a>
+      <a href="/spotify/songs">Songs</a>
+      <a href="/spotify/artists">Artists</a>
+      <a href="/spotify/albums">Albums</a>
+      <a href="/map">Map</a>
+      <a href="/disconnect" class="right">Logout</a>
+      </div>
+
+      <canvas id="myChart" style="width: 900px; height: 500px;"></canvas>
+    </div>
+  </body>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+    <script type="text/javascript">
+        var list = [];
+        var value;
+        "<% for (var key in details) {%>"
+            "<%value = details[key]; %>"
+            list["<%= key %>"] = "<%= value %>"
+            list.push("<%= value%>")
+        "<% } %>"
+        
+        list[8] = String(list[8] / 1000)
+        
+        //console.log(list)
+        var ctx = document.getElementById('myChart').getContext('2d');
+        var chart = new Chart(ctx, {
+            // The type of chart we want to create
+            type: 'radar',
+
+            // The data for our dataset
+            data: {
+                labels: ['danceability', 'energy', 'loudness', 'speechiness', 'acousticness', 'instrumentalness', 'liveness', 'valence', 'tempo'],
+                datasets: [{
+                    label: 'See Track Features',
+                    backgroundColor: 'rgb(30, 215, 96)',
+                    borderColor: 'rgb(25, 20, 20)',
+                    data: [list[0], list[1], list[2], list[3], list[4], list[5], list[6], list[7], list[8]]
+                }]
+            },
+
+            // Configuration options go here
+            options: {}
+        });
+</script>
+
+</html>
+

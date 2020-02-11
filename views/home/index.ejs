@@ -1,4 +1,5 @@
 <% const spotify = locals.spotify %>
+<% const artists = locals.arts %>
 <!doctype html>
 <html>
 <head>
@@ -26,35 +27,8 @@
             <a href="/spotify/artists">Artists</a>
             <a href="/spotify/albums">Albums</a>
             <a href="/map">Map</a>
-            <a href="#" class="right">Logout</a>
+            <a href="/disconnect" class="right">Logout</a>
             </div>
-        <!-- <div class="home-wrapper">
-            <div class="spotify-wrapper">
-                <h2 class="connected-as"><i class="fab fa-spotify"></i> Connected as: </h2>
-                <div class="buttons">
-                    <a href="<%= spotify.href %>" class="button button-spotify hover-none" target="_blank">
-                        <% if (spotify.picture) { %>
-                        <img src="<%= spotify.picture %>" alt="avatar" class="avatar">
-                        <% } %>
-                        <span class="name"><%= spotify.name %></span>
-                    </a>
-                </div> -->
-                
-                <!-- <div class="buttons">
-                    <a href="/spotify/songs" class="button button-opaque15 hover-none<% if (locals.currentPage === 'songs') {
-                    %>  active<% } %>">
-                        <span>Songs</span>
-                    </a>
-                    <a href="/spotify/artists" class="button button-opaque15 hover-none<% if (locals.currentPage === 'artists') {
-                    %>  active<% } %>">
-                        <span>Artists</span>
-                    </a>
-                    <a href="/spotify/albums" class="button button-opaque15 hover-none<% if (locals.currentPage === 'albums') {
-                    %>  active<% } %>">
-                        <span>Albums</span>
-                    </a>
-                    
-                </div> -->
             </div>
         </div>
         <div class="card">
@@ -67,6 +41,118 @@
             <p><button onclick="location.href='<%= spotify.href %>'" type="button">Open Spotify</button></p>
 
           </div>
+
+
+
+          <% if (artists) { %>
+              <!-- <% for (var i = 0; i < 3; i++) {%> -->
+              <!-- <div class="row">
+                <% for (var j = 0; j < 3; j++) {%>
+                <div class="column">
+                  <div class="card">
+                    <% var x = String(3 * i + j) ; var src = artists['0'].image %>
+                    <% console.log(x) %>
+                    <img src="<%= src %>" alt="avatar" style="width:100%" class = "avatar" >
+                    <p>Some text</p>
+                  </div>
+                </div>
+                <% } %>
+              </div>
+              <% } %> -->
+              <div class = artists-home>
+                  <div class="row">
+                    <div class="column">
+                      <div class="card">
+                        <img src="<%= artists['0'].image %>" alt="avatar" style="width:100%" class = "avatar" >
+                        <h1 class="name"><%= artists['0'].name %></h1>
+                        <% var link = "/song-artist/" + String(artists['0'].id) %>
+                        <p><button onclick="location.href='<%= link %>'" type="button">Go to Artist's Tracks</button></p>
+                      </div>
+                    </div>
+                    <div class="column">
+                      <div class="card">
+                        <img src="<%= artists['1'].image %>" alt="avatar" style="width:100%" class = "avatar" >
+                        <h1 class="name"><%= artists['1'].name %></h1>
+                        <% var link = "/song-artist/" + String(artists['1'].id) %>
+                        <p><button onclick="location.href='<%= link %>'" type="button">Go to Artist's Tracks</button></p>
+                      </div>
+                    </div>
+                    <div class="column">
+                      <div class="card">
+                        <img src="<%= artists['2'].image %>" alt="avatar" style="width:100%" class = "avatar" >
+                        <h1 class="name"><%= artists['2'].name %></h1>
+                        <% var link = "/song-artist/" + String(artists['2'].id) %>
+                        <p><button onclick="location.href='<%= link %>'" type="button">Go to Artist's Tracks</button></p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="column">
+                      <div class="card">
+                        <img src="<%= artists['3'].image %>" alt="avatar" style="width:100%" class = "avatar" >
+                        <h1 class="name"><%= artists['3'].name %></h1>
+                        <% var link = "/song-artist/" + String(artists['3'].id) %>
+                        <p><button onclick="location.href='<%=link  %>'" type="button">Go to Artist's Tracks</button></p>
+                      </div>
+                    </div>
+                    <div class="column">
+                      <div class="card">
+                        <img src="<%= artists['4'].image %>" alt="avatar" style="width:100%" class = "avatar" >
+                        <h1 class="name"><%= artists['4'].name %></h1>
+                        <% var link = "/song-artist/" + String(artists['4'].id) %>
+                        <p><button onclick="location.href='<%=link  %>'" type="button">Go to Artist's Tracks</button></p>
+                      </div>
+                    </div>
+                    <div class="column">
+                      <div class="card">
+                        <img src="<%= artists['5'].image %>" alt="avatar" style="width:100%" class = "avatar" >
+                        <h1 class="name"><%= artists['5'].name %></h1>
+                        <% var link = "/song-artist/" + String(artists['5'].id) %>
+                        <p><button onclick="location.href='<%=link  %>'" type="button">Go to Artist's Tracks</button></p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="column">
+                      <div class="card">
+                        <img src="<%= artists['6'].image %>" alt="avatar" style="width:100%" class = "avatar" >
+                        <h1 class="name"><%= artists['6'].name %></h1>
+                        <% var link = "/song-artist/" + String(artists['6'].id) %>
+                        <p><button onclick="location.href='<%=link  %>'" type="button">Go to Artist's Tracks</button></p>
+                      </div>
+                    </div>
+                    <div class="column">
+                      <div class="card">
+                        <img src="<%= artists['7'].image %>" alt="avatar" style="width:100%" class = "avatar" >
+                        <h1 class="name"><%= artists['7'].name %></h1>
+                        <% var link = "/song-artist/" + String(artists['7'].id) %>
+                        <p><button onclick="location.href='<%=link  %>'" type="button">Go to Artist's Tracks</button></p>
+                      </div>
+                    </div>
+                    <div class="column">
+                      <div class="card">
+                        <img src="<%= artists['8'].image %>" alt="avatar" style="width:100%" class = "avatar" >
+                        <h1 class="name"><%= artists['8'].name %></h1>
+                        <% var link = "/song-artist/" + String(artists['8'].id) %>
+                        <p><button onclick="location.href='<%=link  %>'" type="button">Go to Artist's Tracks</button></p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+              
+          <% } %>
+          
+
+
         <% } %>
+        
+          
+
 </body>
+<script>
+  
+</script>
 </html>

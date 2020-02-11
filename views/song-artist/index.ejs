@@ -1,0 +1,133 @@
+<% const tracks = locals.songs %>
+<!doctype html>
+<html>
+<head>
+    <title>Node Authentication</title>
+    <link rel="stylesheet" href="/stylesheets/Home/style.css">
+</head>
+<body>  
+   
+        <div class="navbar">
+            <a href="/">ACAV</a>
+            <a href="/spotify/songs">Songs</a>
+            <a href="/spotify/artists">Artists</a>
+            <a href="/spotify/albums">Albums</a>
+            <a href="/map">Map</a>
+            <a href="/disconnect" class="right">Logout</a>
+            </div>
+            </div>
+        </div>
+       
+
+          <% if (tracks) { %>
+              <!-- <% for (var i = 0; i < 3; i++) {%> -->
+              <!-- <div class="row">
+                <% for (var j = 0; j < 3; j++) {%>
+                <div class="column">
+                  <div class="card">
+                    <% var x = String(3 * i + j) ; var src = tracks['0'].image %>
+                    <% console.log(x) %>
+                    <img src="<%= src %>" alt="avatar" style="width:100%" class = "avatar" >
+                    <p>Some text</p>
+                  </div>
+                </div>
+                <% } %>
+              </div>
+              <% } %> -->
+              <div class = tracks-page>
+                  <div class="row">
+                    <div class="column">
+                      <div class="card">
+                        <img src="<%= tracks['0'].image %>" alt="avatar" style="width:100%" class = "avatar" >
+                        <h1 class="name"><%= tracks['0'].name %></h1>
+                        <% var link = "/song-artist/track/" + String(tracks['0'].id) %>
+                        <p><button onclick="location.href='<%= link %>'" type="button">Go to Song's Features</button></p>
+                      </div>
+                    </div>
+                    <div class="column">
+                      <div class="card">
+                        <img src="<%= tracks['1'].image %>" alt="avatar" style="width:100%" class = "avatar" >
+                        <h1 class="name"><%= tracks['1'].name %></h1>
+                        <% var link = "/song-artist/track/" + String(tracks['1'].id) %>
+                        <p><button onclick="location.href='<%=link  %>'" type="button">Go to Song's Features</button></p>
+                      </div>
+                    </div>
+                    <div class="column">
+                      <div class="card">
+                        <img src="<%= tracks['2'].image %>" alt="avatar" style="width:100%" class = "avatar" >
+                        <h1 class="name"><%= tracks['2'].name %></h1>
+                        <% var link = "/song-artist/track/" + String(tracks['2'].id) %>
+                        <p><button onclick="location.href='<%=link  %>'" type="button">Go to Song's Features</button></p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="column">
+                      <div class="card">
+                        <img src="<%= tracks['3'].image %>" alt="avatar" style="width:100%" class = "avatar" >
+                        <h1 class="name"><%= tracks['3'].name %></h1>
+                        <% var link = "/song-artist/track/" + String(tracks['3'].id) %>
+                        <p><button onclick="location.href='<%=link  %>'" type="button">Go to Song's Features</button></p>
+                      </div>
+                    </div>
+                    <div class="column">
+                      <div class="card">
+                        <img src="<%= tracks['4'].image %>" alt="avatar" style="width:100%" class = "avatar" >
+                        <h1 class="name"><%= tracks['4'].name %></h1>
+                        <% var link = "/song-artist/track/" + String(tracks['4'].id) %>
+                        <p><button onclick="location.href='<%=link  %>'" type="button">Go to Song's Features</button></p>
+                      </div>
+                    </div>
+                    <div class="column">
+                      <div class="card">
+                        <img src="<%= tracks['5'].image %>" alt="avatar" style="width:100%" class = "avatar" >
+                        <h1 class="name"><%= tracks['5'].name %></h1>
+                        <% var link = "/song-artist/track/" + String(tracks['5'].id) %>
+                        <p><button onclick="location.href='<%=link  %>'" type="button">Go to Song's Features</button></p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="column">
+                      <div class="card">
+                        <img src="<%= tracks['6'].image %>" alt="avatar" style="width:100%" class = "avatar" >
+                        <h1 class="name"><%= tracks['6'].name %></h1>
+                        <% var link = "/song-artist/track/" + String(tracks['6'].id) %>
+                        <p><button onclick="location.href='<%=link  %>'" type="button">Go to Song's Features</button></p>
+                      </div>
+                    </div>
+                    <div class="column">
+                      <div class="card">
+                        <img src="<%= tracks['7'].image %>" alt="avatar" style="width:100%" class = "avatar" >
+                        <h1 class="name"><%= tracks['7'].name %></h1>
+                        <% var link = "/song-artist/track/" + String(tracks['7'].id) %>
+                        <p><button onclick="location.href='<%= link %>'" type="button">Go to Song's Features</button></p>
+                      </div>
+                    </div>
+                    <div class="column">
+                      <div class="card">
+                        <img src="<%= tracks['8'].image %>" alt="avatar" style="width:100%" class = "avatar" >
+                        <h1 class="name"><%= tracks['8'].name %></h1>
+                        <% var link = "/song-artist/track/" + String(tracks['8'].id) %>
+                        <p><button onclick="location.href='<%=link  %>'" type="button">Go to Song's Features</button></p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+              
+          <% } %>
+          
+
+
+        
+        
+          
+
+</body>
+<script>
+  
+</script>
+</html>

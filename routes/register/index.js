@@ -2,7 +2,6 @@ var express = require('express');
 var router = express.Router();
 var request = require("request")
 
-/* GET home page. */
 router.get('/', function(req, res, next) {
     res.render('register', { message: '' });
 });
@@ -19,7 +18,6 @@ router.post('/', (req, res) => {
                 json: {email, password }
             }, (error, response, body) => {
                 if (!error && response.statusCode === 200) {
-                    console.log(email)
                     res.redirect('http://localhost:3000/login')
                 }
             });

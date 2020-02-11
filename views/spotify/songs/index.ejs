@@ -10,11 +10,11 @@
       <a href="/spotify/artists">Artists</a>
       <a href="/spotify/albums">Albums</a>
       <a href="/map">Map</a>
-      <a href="#" class="right">Logout</a>
+      <a href="/disconnect" class="right">Logout</a>
       </div>
-
-    <div id='png'></div>
+      
     <div id="piechart" style="width: 900px; height: 500px;"></div>
+    <div id='png'></div>
     </div>
   </body>
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
@@ -28,7 +28,7 @@
     "<% for (const [key, val] of Object.entries(spotify)) { %>"
     dict["<%= key %>"] = "<%= val %>"
     "<% } %>"
-    console.log(dict)
+    //console.log(dict)
     // Define the chart to be drawn.
     var data = new google.visualization.DataTable();
     data.addColumn('string', 'Song');
@@ -46,12 +46,11 @@
     var piechart = document.getElementById('piechart');
     var chart = new google.visualization.PieChart(document.getElementById('piechart'));
 
-    // google.visualization.events.addListener(chart, 'ready', function () {
-    //     piechart.innerHTML = '<img src="' + chart.getImageURI() + '">';
-    //     document.getElementById('png').outerHTML = '<a href="' + chart.getImageURI() + '" download>Printable version</a>';
+    google.visualization.events.addListener(chart, 'ready', function () {
+        document.getElementById('png').outerHTML = '<a href="' + chart.getImageURI() + '" download>Download as PNG</a>';
         
-    //     console.log(piechart.innerHTML);
-    //   });
+        //console.log(piechart.innerHTML);
+      });
 
     chart.draw(data, options);
   }

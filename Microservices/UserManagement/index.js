@@ -20,7 +20,7 @@ mongoose.model('User', UserSchema);
 
 User = mongoose.model("User");
 
-console.log(mongoose.modelNames())
+//console.log(mongoose.modelNames())
 
 var mongoDB = "mongodb+srv://robertT:parola1234@cluster0-zknkc.mongodb.net/ACAV?retryWrites=true&w=majority";
 mongoose.connect(mongoDB, { useUnifiedTopology: true, useNewUrlParser: true  });
@@ -54,7 +54,6 @@ router.post('/register', function(req, res, next) {
     }
     var user = new User(newUser);
     user.save().then(() => {
-        console.log(newUser)
         res.status(200).send({
             "success": "You have been registered!"
         });
@@ -102,8 +101,6 @@ router.post('/login', (req, res) => {
 router.put('/update-spotify-token',async (req, res) => {
     const spotifyToken = req.body.spotify_token;
     const usertoken = req.body.user_token;
-    console.log(spotifyToken)
-    console.log(usertoken)
     await User.updateOne({ token: usertoken }, {
         spotifyToken: spotifyToken
       });

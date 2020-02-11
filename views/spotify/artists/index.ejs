@@ -10,7 +10,7 @@
       <a href="/spotify/artists">Artists</a>
       <a href="/spotify/albums">Albums</a>
       <a href="/map">Map</a>
-      <a href="#" class="right">Logout</a>
+      <a href="/disconnect" class="right">Logout</a>
       </div>
 
     <div id='png'></div>
@@ -29,7 +29,7 @@
         "<% for (const [key, val] of Object.entries(spotify)) { %>"
         dict["<%= key %>"] = "<%= val %>"
         "<% } %>"
-        console.log(dict)
+        //console.log(dict)
         // Define the chart to be drawn.
         var data = new google.visualization.DataTable();
         data.addColumn('string', 'Album');
@@ -41,11 +41,10 @@
         }
 
       var options = {
-        title: 'Chess opening moves',
         width: 900,
         legend: { position: 'none' },
-        chart: { title: 'Chess opening moves',
-                 subtitle: 'popularity by percentage' },
+        chart: { title: 'Your Favorite Artists'
+                  },
         bars: 'horizontal', // Required for Material Bar Charts.
         axes: {
           x: {
@@ -56,6 +55,13 @@
       };
 
       var chart = new google.charts.Bar(document.getElementById('bar'));
+      
+      google.visualization.events.addListener(chart, 'ready', function () {
+        //console.log(chart.getChart())
+        //document.getElementById('png').outerHTML = '<a href="' + chart.getChart().getImageURI() + '" download>Printable version</a>';
+        
+        //console.log(columnchart.innerHTML);
+      });
       chart.draw(data, options);
     };
   </script>

@@ -6,9 +6,6 @@ const { isAuthorized, storage } = require('../../session');
 router.get('/', isAuthorized, (req, res) => {
 
     const sess = req.session;
-    // console.log("connect")
-    // console.log(sess)
-    // console.log(req.body)
     
     if (!req.session.user.spotify) {
         const requestUri = `http://localhost:5000/login`;
@@ -23,7 +20,6 @@ router.get('/', isAuthorized, (req, res) => {
             wa: req.session.wa,
             user: req.session.user
         }));
-        //console.log(requestUri + '?' + querystring.stringify(data))
         res.redirect(requestUri + '?' + querystring.stringify(data));
     } else {
         res.redirect('/');
@@ -31,26 +27,18 @@ router.get('/', isAuthorized, (req, res) => {
 });
 
 router.post('/', isAuthorized, (req, res) => {
-    //console.log("ceva")
     var token = req.body.spotify.token;
     const refresh_token = req.body.spotify.refresh_token;
-    // console.log("conn")
-    //console.log(token)
-    // console.log(req.session)
     req.session.user.spotify = { token, refresh_token };
 
     const sess = req.session;
-    //token = "BQADCYRhGuYaxqJoSpJUYsqs1uegD9vrLczqj1KDGSwLKympG-icvKVR2QECYcw3I0to9SowUvoYipdOxAXTj1oMbhK194h0c-eejbJOSc8JZysnS3dY7nQ0McnezgFjrw4hzsbBV2M2-lY3AdOwFauM1v3BDFQ11yqj9KW34V-fK74_JMiYRd7FvbbXAns";
     request.get("http://localhost:5000/get-me",{
         json: { token }
     }, (req, response) => {
-        console.log("ajung aici3")
-        //console.log(res)
         sess.user.spotify.id = response.body.id;
         sess.user.spotify.href = response.body.href;
         sess.user.spotify.name = response.body.diplay_name;
         sess.user.spotify.picture = response.body.picture;
-        console.log(sess.user)
 
         storage.setItem(sess.wa.token, JSON.stringify({
             wa: sess.wa,
@@ -61,9 +49,7 @@ router.post('/', isAuthorized, (req, res) => {
 
 
     const requestUri = `http://localhost:4000/update-spotify-token`;
-
-    // console.log(req.session.user.spotify.refresh_token);rs
-    // console.log(req.session.wa.token);
+    
     request.put(requestUri, {
         json: {
             spotify_token: req.session.user.spotify.refresh_token,
@@ -71,6 +57,25 @@ router.post('/', isAuthorized, (req, res) => {
         }
     });
     
+});
+
+router.post('/token', (req, res) => {
+
+    const requestUri = `http://localhost:5000/token`;
+    const refresh_token = req.body.refresh_token;
+
+    request.post(requestUri, {
+        json: { refresh_token }
+    }, (error, response, body) => {
+        if (!error && response.statusCode === 200) {
+            const token = body.access_token;
+            if (token) {
+                res.json({ token });
+            }
+        } else {
+            res.sendStatus(500);
+        }
+    });
 });
 
 module.exports = router;

@@ -38,7 +38,6 @@ var generateRandomString = function(length) {
 router.get('/login', (req, res) => {
     const sess = req.session;
     
-
     var state = generateRandomString(16);
     res.cookie(stateKey, state);
 
@@ -47,9 +46,6 @@ router.get('/login', (req, res) => {
         req.session.email = req.query.email;
         req.session.token = req.query.token;
     }
-    // console.log("spot")
-    // console.log(sess)
-    
     const scope = 'user-read-private user-read-email user-library-read user-follow-read';
     res.redirect('https://accounts.spotify.com/authorize?' +
     querystring.stringify({
@@ -62,8 +58,7 @@ router.get('/login', (req, res) => {
 });
 
 router.get('/callback', (req, res) => {
-    // your application requests refresh and access tokens
-  // after checking the state parameter
+   
   var code = req.query.code || null;
   var state = req.query.state || null;
   var storedState = req.cookies ? req.cookies[stateKey] : null;
@@ -95,9 +90,7 @@ router.get('/callback', (req, res) => {
             if (!error && response.statusCode === 200) {
                 const refresh_token = body.refresh_token;
                 var access_token = body.access_token;
-                console.log("aici")
-                console.log(access_token)
-                //er_display_name = "";
+
 
                 request.post("http://localhost:3000/connect", {
                     json: {
@@ -108,58 +101,13 @@ router.get('/callback', (req, res) => {
                         wa
                     }
                 }, (error, response, body) => {
-                    console.log("ajung aici1")
                     if (!error && response.statusCode === 200) {
-                            console.log("ajung aici2")
                             res.redirect("http://localhost:3000/connect" + '/?' + querystring.stringify({
                             wa: wa.token
                         }));
                     }
                 });
                 
-
-                // var options = {
-                // url: 'https://api.spotify.com/v1/me',
-                // headers: { 'Authorization': 'Bearer ' + access_token },
-                // json: true
-                // };
-
-                // request.get(options, function(error, response, body) {
-                //     let user_url = "https://api.spotify.com/v1/me";
-            
-                //         user_display_name = body.display_name;
-                //         //console.log(body);
-                //         var userId = body.id
-
-                //         let top_artists_url = "https://api.spotify.com/v1/users/"+userId+"/playlists";
-                //         //console.log(top_artists_url)
-                //         request({url:top_artists_url, headers: { 'Authorization': 'Bearer ' + access_token }}, function(err,res){
-                //             if(res){
-                //             let top_artists = JSON.parse(res.body);
-                //             //console.log(res.body.list_top_artists_artist);
-                //                 //console.log(top_artists.items);
-                //                 //console.log("ceva");
-                                
-                //             } else if (err){
-                //               console.log('Nu s-a putu citi top artists');
-                //             }
-                //           });
-                //           request.post("http://localhost:3000/connect", {
-                //             json: {
-                //                 spotify: {
-                //                     token: access_token,
-                //                     refresh_token: refresh_token
-                //                 },
-                                
-                //             }
-                //         }, (error, response, body) => {
-                //             if (!error && response.statusCode === 200) {
-                //                 res.redirect("http://localhost:3000/connect");
-                //             }
-                //         });
-                          
-
-                // });
 
             } else {
                 res.status(403).json({ message: 'invalid token' })
@@ -172,16 +120,11 @@ router.get('/callback', (req, res) => {
 
 router.get('/get-me', (req, res) => {
     var access_token = req.body.token
-    console.log("acces-token trimis pe get-me")
-    console.log(req.body.token)
-    //var access_token = JSON.parse(req.body).access_token
-    //var access_token = "BQBubcMiAn5H4o6dWHGfTNXjPFzlfHNZVBey71NVpVwkyMa1FRGTWtbiYMirPpejrwb9UMqGKLOH2bCYs7Ak_GtQkFeWAuisJMAf8h2EzIcv6YL5pdymh8g5-7o_rLQBFL07yjGD1FsT6jWVzToTIfDZd7ME-1IGOMdM-IH3ANdd28CwBLDo8FuxwLGJ-RA";
     let user_url = "https://api.spotify.com/v1/me";
     request({url:user_url, headers: { 'Authorization': 'Bearer ' + access_token }}, function(err,response){
         if(response){
             let content = JSON.parse(response.body);
-            console.log(content)
-    
+            
             if (content.images.length > 0) {
                 var picture = content.images[0].url;
             }else {
@@ -196,7 +139,7 @@ router.get('/get-me', (req, res) => {
             });
 
             } else if (err){
-            console.log('Nu s-a putut');
+                console.log('Nu s-a putut');
             }
     });
 });
@@ -206,7 +149,7 @@ router.get('/top-playlist-countries', (req, res) => {
     var result = {}
     var i = 0;
     Object.keys(countries).forEach(key=>{
-        console.log(`${key} : ${countries[key]}`);
+        //console.log(`${key} : ${countries[key]}`);
         var cheie = key;
         var countryID = countries[key];
         //var access_token = "BQDaW5Vz_nc5KER-tWLYSihA5YKQjy5DiQ7_4enAWCeFcMs0tE4k3nB8R_IeCZAvszU8bXmH5uGN0LpNqS0vHFmrBUiv-4d2JLbdWIu-c4J7M0qgf3SxOvqO7EJYENeoPDuXMha_JyXoXwvMCqVPwSYSpricxLgHt0c-g_kXGM0r7GNBDzmUeFtCyXgIWa4";
@@ -229,14 +172,10 @@ router.get('/top-playlist-countries', (req, res) => {
                     if (index < 6) {
                         list.push(data)
                     }
-                    //console.log(song.track.name+ "/ /" + song.track.artists[0].name);
-                    //console.log(data)
                     index = index + 1
                 })
                 var tracks = list;
                 result[cheie] = tracks;
-                console.log(result)
-                console.log(i);
                 if (i === 15) {
                     res.json(result);
                 }
@@ -256,13 +195,11 @@ router.get('/top-playlist-countries', (req, res) => {
 router.get('/top-tracks', (req, res) => {
     var access_token = "BQCdS0V9pvhKwx1yPUIIyB7P95Znn_tAAHBe7odjiL6gDXVe1eBpaTc-LgL5HbSasFP33JdW04PBMuznof4Y_idPBH_jUclpnUaN--2YQvH98HvCuH5rvo_g1QPpBRmGtzFiEYN_yQ6kkHYn1bPkbKKcbDEbsZGzNR6-ajeUKnYwQCU-QBf4ZafeC0reYD8";
     access_token = req.body.token
-    //console.log(access_token)
     let url = "https://api.spotify.com/v1/me/tracks"
     request({url:url, headers: { 'Authorization': 'Bearer ' + access_token }}, function(err,response){
         if(response){
             
             let content = JSON.parse(response.body);
-            //console.log(content.items);
             let list = [];
             let index = 1;
             content.items.forEach(song =>  {
@@ -273,19 +210,15 @@ router.get('/top-tracks', (req, res) => {
                     name, artist, popularity
                 };
                 if (index < 11) {
-                    //console.log(list)
                     list.push(data)
                 }
                 if (index === 10) {
-                    //onsole.log(list)
                     res.json(list);
                 }
-                //console.log(song.track.name+ "/ /" + song.track.artists[0].name);
-                //console.log(data)
                 index = index + 1
             })
             } else if (err){
-            console.log('Nu s-a putu citi top artists');
+            //console.log('Nu s-a putu citi top artists');
             }
     });
 
@@ -300,10 +233,8 @@ router.get('/top-albums', (req, res) => {
         if(response){
             
             let content = JSON.parse(response.body);
-            console.log(content.items);
             let list = [];
             let index = 1;
-            //console.log(typeof content)
             content.items.forEach(album =>  {
                 let name = album.album.name;
                 let artist = album.album.artists[0].name;
@@ -317,13 +248,11 @@ router.get('/top-albums', (req, res) => {
                 if (index === 10) {
                     res.json(list);
                 }
-                //console.log(song.track.name+ "/ /" + song.track.artists[0].name);
-                //console.log(data)
                 index = index + 1
             })
-            console.log(list)
+            
             } else if (err){
-            console.log('Nu s-a putu citi top artists');
+                console.log('Nu s-a putu citi top artists');
             }
     });
 
@@ -331,7 +260,7 @@ router.get('/top-albums', (req, res) => {
 
 router.get('/top-artists', (req, res) => {
     var access_token = "BQCdS0V9pvhKwx1yPUIIyB7P95Znn_tAAHBe7odjiL6gDXVe1eBpaTc-LgL5HbSasFP33JdW04PBMuznof4Y_idPBH_jUclpnUaN--2YQvH98HvCuH5rvo_g1QPpBRmGtzFiEYN_yQ6kkHYn1bPkbKKcbDEbsZGzNR6-ajeUKnYwQCU-QBf4ZafeC0reYD8";
-    let url = "https://api.spotify.com/v1/me/following?type=artist"
+    let url = "https://api.spotify.com/v1/me/following?type=artist";
     access_token = req.body.token
     request({url:url, headers: { 'Authorization': 'Bearer ' + access_token }}, function(err,response){
         if(response){
@@ -340,12 +269,13 @@ router.get('/top-artists', (req, res) => {
             console.log(content.artists.items);
             let list = [];
             let index = 1;
-            //console.log(typeof content)
             content.artists.items.forEach(artist =>  {
                 let name = artist.name;
                 let popularity = artist.popularity;
+                let id = artist.id;
+                let image = artist.images[0].url;
                 let data = {
-                    name, popularity
+                    name, popularity, id, image
                 };
                 if (index < 11) {
                     list.push(data)
@@ -353,16 +283,84 @@ router.get('/top-artists', (req, res) => {
                 if (index === 10) {
                     res.json(list);
                 }
-                //console.log(song.track.name+ "/ /" + song.track.artists[0].name);
-                //console.log(data)
                 index = index + 1
             })
-            console.log(list)
             } else if (err){
-            console.log('Nu s-a putu citi top artists');
+                console.log('Nu s-a putu citi top artists');
             }
     });
 
+});
+
+router.get('/top-tracks-for-artist', (req, res) => {
+    var access_token = "BQCdS0V9pvhKwx1yPUIIyB7P95Znn_tAAHBe7odjiL6gDXVe1eBpaTc-LgL5HbSasFP33JdW04PBMuznof4Y_idPBH_jUclpnUaN--2YQvH98HvCuH5rvo_g1QPpBRmGtzFiEYN_yQ6kkHYn1bPkbKKcbDEbsZGzNR6-ajeUKnYwQCU-QBf4ZafeC0reYD8";
+    access_token = req.body.token
+    var id = req.body.id
+    let url = "https://api.spotify.com/v1/artists/"+ id +"/top-tracks?country=RO";
+    request({url:url, headers: { 'Authorization': 'Bearer ' + access_token }}, function(err,response){
+        if(response){
+            let content = JSON.parse(response.body).tracks;
+            let list = [];
+            let index = 1;
+            content.forEach(song =>  {
+                let name = song.name;
+                let popularity = song.popularity;
+                let id = song.id;
+                let image = song.album.images[0].url;
+
+                let data = {
+                    name, id, popularity, image
+                };
+                if (index < 11) {
+                    list.push(data)
+                }
+                if (index === 10) {
+                    res.json(list);
+                }
+                index = index + 1
+            })
+            } else if (err){
+                console.log('Nu s-a putu citi top artists');
+            }
+    });
+
+});
+
+router.get('/audio-features-track', (req, res) => {
+    var access_token = "BQCdS0V9pvhKwx1yPUIIyB7P95Znn_tAAHBe7odjiL6gDXVe1eBpaTc-LgL5HbSasFP33JdW04PBMuznof4Y_idPBH_jUclpnUaN--2YQvH98HvCuH5rvo_g1QPpBRmGtzFiEYN_yQ6kkHYn1bPkbKKcbDEbsZGzNR6-ajeUKnYwQCU-QBf4ZafeC0reYD8";
+    access_token = req.body.token
+    var id = req.body.id
+    let url = "https://api.spotify.com/v1/audio-features/" + id;
+    request({url:url, headers: { 'Authorization': 'Bearer ' + access_token }}, function(err,response){
+        if(response){
+            let content = JSON.parse(response.body);
+            res.json(content)
+        }
+    });
+
+});
+
+router.post('/token', (req, res) => {
+
+    const refresh_token = req.body.refresh_token;
+
+    const authOptions = {
+        url: 'https://accounts.spotify.com/api/token',
+        headers: {
+            'Authorization': `Basic ${buffer.toString('base64')}`
+        },
+        form: {
+            grant_type: 'refresh_token',
+            refresh_token: refresh_token
+        },
+        json: true
+    };
+
+    request.post(authOptions, (error, response, body) => {
+        if (!error && response.statusCode === 200) {
+            res.json({ access_token: body.access_token })
+        }
+    });
 });
 
 
@@ -372,4 +370,4 @@ app.use('/', router);
 app.listen(port);
 
 console.log(`Running at Port ${port}`);
-console.log(countries);
+//console.log(countries);
